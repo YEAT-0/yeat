@@ -1,1 +1,195 @@
-# yeat
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Çıkma Teklifi</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f9a1bc, #f7d794);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    max-width: 400px;
+    position: relative;
+    animation: pop 0.5s ease;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  h1 {
+    font-family: 'Pacifico', cursive;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #555;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+  }
+
+  .yes {
+    background-color: #ff4d6d;
+    color: white;
+  }
+
+  .no {
+    background-color: #ccc;
+    color: white;
+  }
+
+  /* Kalp animasyonu */
+  .heart {
+    position: absolute;
+    font-size: 30px;
+    color: #ff4d6d;
+    animation: float 2s ease-out forwards;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+  }
+
+  /* Kutlama mesajı */
+  .celebrate {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Pacifico', cursive;
+    font-size: 30px;
+    color: #ff4d6d;
+    animation: pop 0.5s ease;
+  }
+
+  /* Hata mesajı */
+  .error {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4d6d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    opacity: 0;
+    animation: fade 1s forwards;
+  }
+
+  @keyframes fade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Konfeti */
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4d6d;
+    top: 0;
+    animation: fall 2s linear forwards;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(500px) rotate(360deg); opacity: 0; }
+  }
+
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Benimle çıkar mısın? 💖</h1>
+  <p>Bu teklifi kabul ediyor musun?</p>
+  <div class="buttons">
+    <button class="yes" onclick="celebrate()">Evet</button>
+    <button class="no" onclick="showError()">Hayır</button>
+  </div>
+</div>
+
+<script>
+function celebrate() {
+  // Kutlama mesajı ekle
+  const msg = document.createElement('div');
+  msg.className = 'celebrate';
+  msg.textContent = 'seni seviyorum! ❤️';
+  document.body.appendChild(msg);
+
+  setTimeout(() => msg.remove(), 1500);
+
+  // Kalpler oluştur
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.animationDuration = (1 + Math.random() * 1.5) + 's';
+    heart.textContent = '❤️';
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2000);
+  }
+
+  // Konfeti oluştur
+  for (let i = 0; i < 50; i++) {
+    const conf = document.createElement('div');
+    conf.className = 'confetti';
+    conf.style.left = Math.random() * window.innerWidth + 'px';
+    conf.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+    conf.style.width = (5 + Math.random()*10)+'px';
+    conf.style.height = conf.style.width;
+    conf.style.animationDuration = (1 + Math.random()*1.5)+'s';
+    document.body.appendChild(conf);
+
+    setTimeout(() => conf.remove(), 2000);
+  }
+}
+
+function showError() {
+  const err = document.createElement('div');
+  err.className = 'error';
+  err.textContent = 'Hata! Tekrar deneyin 😉';
+  document.body.appendChild(err);
+  setTimeout(() => err.remove(), 1500);
+}
+</script>
+</body>
+</html>
